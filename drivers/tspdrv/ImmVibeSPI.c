@@ -441,6 +441,10 @@
 
 #define REAL_TIME_PLAYBACK_CALIBRATION_STRENGTH 0x7F /* 100% of rated voltage (closed loop) */
 
+#define MAX_VIBE_STRENGTH   REAL_TIME_PLAYBACK_CALIBRATION_STRENGTH
+#define MIN_VIBE_STRENGTH   0x0C
+#define DEF_VIBE_STRENGTH   MAX_VIBE_STRENGTH
+
 #define MAX_REVISION_STRING_SIZE 10
 
 static int g_nDeviceID = -1;
@@ -450,6 +454,7 @@ static bool g_brake;
 static bool g_autotune_brake_enabled;
 static bool g_bNeedToRestartPlayBack;
 static unsigned GPIO_VIBTONE_EN1 = 93;
+static int vibe_strength = DEF_VIBE_STRENGTH;
 
 #define MAX_TIMEOUT 10000 /* 10s */
 #define PAT_MAX_LEN 256
@@ -658,7 +663,10 @@ static unsigned int g_hw_version = 3;
 #endif
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> f079c8e... drivers: tspdrv: Create sysfs interface for vibration intensity
 static ssize_t drv2604_vib_min_show(struct device *dev,
 		struct device_attribute *attr,
 		char *buf)
@@ -673,7 +681,11 @@ static ssize_t drv2604_vib_max_show(struct device *dev,
 	return scnprintf(buf, PAGE_SIZE, "%d\n", MAX_VIBE_STRENGTH);
 }
 
+<<<<<<< HEAD
 static ssize_t drv2604_vib_default_show(struct device *dev,
+=======
+static ssize_t drv2604_vib_level_default_show(struct device *dev,
+>>>>>>> f079c8e... drivers: tspdrv: Create sysfs interface for vibration intensity
 		struct device_attribute *attr,
 		char *buf)
 {
@@ -718,13 +730,21 @@ static ssize_t drv2604_vib_level_store(struct device *dev,
 
 static DEVICE_ATTR(vtg_min, S_IRUGO, drv2604_vib_min_show, NULL);
 static DEVICE_ATTR(vtg_max, S_IRUGO, drv2604_vib_max_show, NULL);
+<<<<<<< HEAD
 static DEVICE_ATTR(vtg_default, S_IRUGO, drv2604_vib_default_show, NULL);
+=======
+static DEVICE_ATTR(vtg_level_default, S_IRUGO, drv2604_vib_level_default_show, NULL);
+>>>>>>> f079c8e... drivers: tspdrv: Create sysfs interface for vibration intensity
 static DEVICE_ATTR(vtg_level, S_IRUGO | S_IWUSR, drv2604_vib_level_show, drv2604_vib_level_store);
 
 static struct attribute *timed_dev_attrs[] = {
 	&dev_attr_vtg_min.attr,
 	&dev_attr_vtg_max.attr,
+<<<<<<< HEAD
 	&dev_attr_vtg_default.attr,
+=======
+	&dev_attr_vtg_level_default.attr,
+>>>>>>> f079c8e... drivers: tspdrv: Create sysfs interface for vibration intensity
 	&dev_attr_vtg_level.attr,
 	NULL,
 };
@@ -733,7 +753,10 @@ static struct attribute_group timed_dev_attr_group = {
 	.attrs = timed_dev_attrs,
 };
 
+<<<<<<< HEAD
 >>>>>>> e37b378... drivers: tspdrv: Rename vtg_level_default to vtg_default
+=======
+>>>>>>> f079c8e... drivers: tspdrv: Create sysfs interface for vibration intensity
 static void drv2604_write_reg_val(const unsigned char *data, unsigned int size)
 {
 	int i = 0;
@@ -977,7 +1000,7 @@ static void vibrator_enable(struct timed_output_dev *dev, int value)
 			/* Only change the mode if not already in RTP mode; RTP input already set at init */
 			if (mode != MODE_REAL_TIME_PLAYBACK) {
 				drv2604_change_mode(MODE_REAL_TIME_PLAYBACK);
-				drv2604_set_rtp_val(REAL_TIME_PLAYBACK_CALIBRATION_STRENGTH);
+				drv2604_set_rtp_val(vibe_strength);
 				/* Workaround for power issue in the DRV2604 */
 				/* Restore the register settings if they have reset to the defaults */
 				#if SKIP_LRA_AUTOCAL == 1
@@ -1470,6 +1493,11 @@ IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_Initialize(void)
 		return VIBE_E_FAIL;
 	}
 
+	if (sysfs_create_group(&to_dev.dev->kobj, &timed_dev_attr_group)) {
+		printk(KERN_ALERT"drv2604: fail to create strength tunables\n");
+		return VIBE_E_FAIL;
+	}
+
 	for (i = 0; i < ARRAY_SIZE(drv2604_hap_attrs); i++) {
 		rc = sysfs_create_file(&to_dev.dev->kobj,
 				&drv2604_hap_attrs[i].attr);
@@ -1552,7 +1580,7 @@ IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_SetSamples(VibeUInt8 nActuatorIndex
 			/* AmpDisable sets force to zero, so need to here */
 #if DRV2604_USE_RTP_MODE
 			if (force > 0)
-				drv2604_set_rtp_val(pForceOutputBuffer[0]);
+				drv2604_set_rtp_val(vibe_strength);
 #endif
 #if DRV2604_USE_PWM_MODE
 			/* From Xiaomi start */
@@ -1581,7 +1609,7 @@ IMMVIBESPIAPI VibeStatus ImmVibeSPI_ForceOut_SetSamples(VibeUInt8 nActuatorIndex
 		g_lastForce = force;
 	} else {
 #if DRV2604_USE_RTP_MODE
-		drv2604_set_rtp_val(pForceOutputBuffer[0]);
+		drv2604_set_rtp_val(vibe_strength);
 #endif
 #if DRV2604_USE_PWM_MODE
 		/* From Xiaomi start */
