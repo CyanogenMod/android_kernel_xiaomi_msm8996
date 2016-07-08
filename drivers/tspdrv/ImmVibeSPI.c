@@ -657,6 +657,83 @@ static unsigned int g_hw_version = 3;
 
 #endif
 
+<<<<<<< HEAD
+=======
+static ssize_t drv2604_vib_min_show(struct device *dev,
+		struct device_attribute *attr,
+		char *buf)
+{
+	return scnprintf(buf, PAGE_SIZE, "%d\n", MIN_VIBE_STRENGTH);
+}
+
+static ssize_t drv2604_vib_max_show(struct device *dev,
+		struct device_attribute *attr,
+		char *buf)
+{
+	return scnprintf(buf, PAGE_SIZE, "%d\n", MAX_VIBE_STRENGTH);
+}
+
+static ssize_t drv2604_vib_default_show(struct device *dev,
+		struct device_attribute *attr,
+		char *buf)
+{
+	return scnprintf(buf, PAGE_SIZE, "%d\n", DEF_VIBE_STRENGTH);
+}
+
+static ssize_t drv2604_vib_level_show(struct device *dev,
+		struct device_attribute *attr,
+		char *buf)
+{
+	return scnprintf(buf, PAGE_SIZE, "%d\n", vibe_strength);
+}
+
+
+static ssize_t drv2604_vib_level_store(struct device *dev,
+		struct device_attribute *attr,
+		const char *buf, size_t count)
+{
+	int rc;
+	int val;
+
+	rc = kstrtoint(buf, 10, &val);
+	if (rc) {
+		pr_err("%s: error getting level\n", __func__);
+		return -EINVAL;
+	}
+
+	if (val < MIN_VIBE_STRENGTH) {
+		pr_err("%s: level %d not in range (%d - %d), using min.\n",
+				__func__, val, MIN_VIBE_STRENGTH, MAX_VIBE_STRENGTH);
+		val = MIN_VIBE_STRENGTH;
+	} else if (val > MAX_VIBE_STRENGTH) {
+		pr_err("%s: level %d not in range (%d - %d), using max.\n",
+				__func__, val, MIN_VIBE_STRENGTH, MAX_VIBE_STRENGTH);
+		val = MAX_VIBE_STRENGTH;
+	}
+
+	vibe_strength = val;
+
+	return strnlen(buf, count);
+}
+
+static DEVICE_ATTR(vtg_min, S_IRUGO, drv2604_vib_min_show, NULL);
+static DEVICE_ATTR(vtg_max, S_IRUGO, drv2604_vib_max_show, NULL);
+static DEVICE_ATTR(vtg_default, S_IRUGO, drv2604_vib_default_show, NULL);
+static DEVICE_ATTR(vtg_level, S_IRUGO | S_IWUSR, drv2604_vib_level_show, drv2604_vib_level_store);
+
+static struct attribute *timed_dev_attrs[] = {
+	&dev_attr_vtg_min.attr,
+	&dev_attr_vtg_max.attr,
+	&dev_attr_vtg_default.attr,
+	&dev_attr_vtg_level.attr,
+	NULL,
+};
+
+static struct attribute_group timed_dev_attr_group = {
+	.attrs = timed_dev_attrs,
+};
+
+>>>>>>> e37b378... drivers: tspdrv: Rename vtg_level_default to vtg_default
 static void drv2604_write_reg_val(const unsigned char *data, unsigned int size)
 {
 	int i = 0;
