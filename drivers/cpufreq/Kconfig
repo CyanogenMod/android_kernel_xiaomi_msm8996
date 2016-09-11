@@ -122,6 +122,7 @@ config CPU_FREQ_DEFAULT_GOV_INTERACTIVE
 	  loading your cpufreq low-level hardware driver, using the
 	  'interactive' governor for latency-sensitive workloads.
 
+<<<<<<< HEAD
 config CPU_FREQ_DEFAULT_GOV_BLU_ACTIVE
  	bool "blu_active"
  	select CPU_FREQ_GOV_BLU_ACTIVE
@@ -131,6 +132,8 @@ config CPU_FREQ_DEFAULT_GOV_BLU_ACTIVE
  	  loading your cpufreq low-level hardware driver, using the
 	  'interactive' governor for latency-sensitive workloads.
 
+=======
+>>>>>>> 85c96ef... cpufreq; add elementalx governor
 config CPU_FREQ_DEFAULT_GOV_ELEMENTALX
 	bool "elementalx"
 	select CPU_FREQ_GOV_ELEMENTALX

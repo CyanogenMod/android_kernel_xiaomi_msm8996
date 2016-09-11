@@ -25,7 +25,11 @@
 #define MAX(x,y)				(x > y ? x : y)
 #define MIN(x,y)				(x < y ? x : y)
 #define TABLE_SIZE				12
+<<<<<<< HEAD
 #define TABLE_NUM				2
+=======
+#define TABLE_NUM				6
+>>>>>>> 85c96ef... cpufreq; add elementalx governor
 
 static DEFINE_PER_CPU(struct ex_cpu_dbs_info_s, ex_cpu_dbs_info);
 
@@ -43,6 +47,7 @@ static struct ex_governor_data {
 
 static unsigned int tblmap[TABLE_NUM][TABLE_SIZE] __read_mostly = {
 
+<<<<<<< HEAD
 	//table 1
 	{
 		652800,
@@ -50,6 +55,63 @@ static unsigned int tblmap[TABLE_NUM][TABLE_SIZE] __read_mostly = {
 		844800,
 		960000,
 		1228800,
+=======
+	//table 0
+	{
+		616400,
+		757200,
+		840000,
+		960000,
+		1248000,
+		1324800,
+		1478400,
+		1593600,
+		1632000,
+		1728000,
+		1824000,
+		1996000,
+	},
+
+	//table 1
+	{
+		773040,
+		899760,
+		1014960,
+		1072560,
+		1248000,
+		1324800,
+		1478400,
+		1593600,
+		1632000,
+		1728000,
+		1824000,
+		1996000,
+	},
+
+	//table 2
+	{
+		851100,
+		956700,
+		1052700,
+		1100700,
+		1350400,
+		1416000,
+		1593600,
+		1708800,
+		1824000,
+		1996000,
+		2073000,
+		2150000,
+	},
+
+	//table 3
+	{
+		616400,
+		757200,
+		840000,
+		960000,
+		1248000,
+>>>>>>> 85c96ef... cpufreq; add elementalx governor
 		1324800,
 		1478400,
 		1593600,
@@ -57,6 +119,7 @@ static unsigned int tblmap[TABLE_NUM][TABLE_SIZE] __read_mostly = {
 		1593600,
 		1593600,
 		1593600,
+<<<<<<< HEAD
 	},	
 	
 	//table 2
@@ -74,6 +137,41 @@ static unsigned int tblmap[TABLE_NUM][TABLE_SIZE] __read_mostly = {
 		2150400,
 		2150400,
 	};
+=======
+	},
+
+	//table 4
+	{
+		773040,
+		899760,
+		1014960,
+		1072560,
+		1248000,
+		1324800,
+		1478400,
+		1593600,
+		1593600,
+		1593600,
+		1593600,
+		1593600,
+	},
+
+	//table 5
+	{
+		851100,
+		956700,
+		1052700,
+		1100700,
+		1324800,
+		1416000,
+		1593600,
+		1708800,
+		1708800,
+		1708800,
+		1708800,
+		1708800,
+	}
+>>>>>>> 85c96ef... cpufreq; add elementalx governor
 
 };
 
@@ -496,4 +594,7 @@ fs_initcall(cpufreq_gov_dbs_init);
 module_init(cpufreq_gov_dbs_init);
 #endif
 module_exit(cpufreq_gov_dbs_exit);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 85c96ef... cpufreq; add elementalx governor
