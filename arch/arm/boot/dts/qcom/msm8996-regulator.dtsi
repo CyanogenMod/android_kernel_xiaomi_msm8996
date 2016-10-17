@@ -192,7 +192,7 @@
 	};
 
 	rpm-regulator-ldoa11 {
-		status = "okay";
+			status = "okay";
 		pm8994_l11: regulator-l11 {
 			regulator-min-microvolt = <1150000>;
 			regulator-max-microvolt = <1150000>;
@@ -612,7 +612,7 @@
 				qcom,cpr-fuse-corners = <5>;
 				qcom,cpr-fuse-combos = <16>;
 				qcom,cpr-speed-bins = <2>;
-				qcom,cpr-speed-bin-corners = <16 13>;
+				qcom,cpr-speed-bin-corners = <16 16>;
 				qcom,cpr-corners =
 					/* Speed bin 0 */
 					<16 16 16 16 16 16 16 16>,
@@ -860,7 +860,7 @@
 				qcom,cpr-fuse-corners = <5>;
 				qcom,cpr-fuse-combos = <16>;
 				qcom,cpr-speed-bins = <2>;
-				qcom,cpr-speed-bin-corners = <19 15>;
+				qcom,cpr-speed-bin-corners = <19 19>;
 				qcom,cpr-corners =
 					/* Speed bin 0 */
 					<19 19 19 19 19 19 19 19>,
@@ -1074,7 +1074,7 @@
 				qcom,cpr-fuse-corners = <5>;
 				qcom,cpr-fuse-combos = <16>;
 				qcom,cpr-speed-bins = <2>;
-				qcom,cpr-speed-bin-corners = <25 21>;
+				qcom,cpr-speed-bin-corners = <25 25>;
 				qcom,cpr-corners =
 					/* Speed bin 0 */
 					<25 25 25 25 25 25 25 25>,
