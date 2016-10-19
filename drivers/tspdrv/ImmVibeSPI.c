@@ -662,11 +662,6 @@ static unsigned int g_hw_version = 3;
 
 #endif
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> f079c8e... drivers: tspdrv: Create sysfs interface for vibration intensity
 static ssize_t drv2604_vib_min_show(struct device *dev,
 		struct device_attribute *attr,
 		char *buf)
@@ -681,11 +676,8 @@ static ssize_t drv2604_vib_max_show(struct device *dev,
 	return scnprintf(buf, PAGE_SIZE, "%d\n", MAX_VIBE_STRENGTH);
 }
 
-<<<<<<< HEAD
 static ssize_t drv2604_vib_default_show(struct device *dev,
-=======
 static ssize_t drv2604_vib_level_default_show(struct device *dev,
->>>>>>> f079c8e... drivers: tspdrv: Create sysfs interface for vibration intensity
 		struct device_attribute *attr,
 		char *buf)
 {
@@ -730,21 +722,15 @@ static ssize_t drv2604_vib_level_store(struct device *dev,
 
 static DEVICE_ATTR(vtg_min, S_IRUGO, drv2604_vib_min_show, NULL);
 static DEVICE_ATTR(vtg_max, S_IRUGO, drv2604_vib_max_show, NULL);
-<<<<<<< HEAD
 static DEVICE_ATTR(vtg_default, S_IRUGO, drv2604_vib_default_show, NULL);
-=======
 static DEVICE_ATTR(vtg_level_default, S_IRUGO, drv2604_vib_level_default_show, NULL);
->>>>>>> f079c8e... drivers: tspdrv: Create sysfs interface for vibration intensity
 static DEVICE_ATTR(vtg_level, S_IRUGO | S_IWUSR, drv2604_vib_level_show, drv2604_vib_level_store);
 
 static struct attribute *timed_dev_attrs[] = {
 	&dev_attr_vtg_min.attr,
 	&dev_attr_vtg_max.attr,
-<<<<<<< HEAD
 	&dev_attr_vtg_default.attr,
-=======
 	&dev_attr_vtg_level_default.attr,
->>>>>>> f079c8e... drivers: tspdrv: Create sysfs interface for vibration intensity
 	&dev_attr_vtg_level.attr,
 	NULL,
 };
@@ -753,10 +739,6 @@ static struct attribute_group timed_dev_attr_group = {
 	.attrs = timed_dev_attrs,
 };
 
-<<<<<<< HEAD
->>>>>>> e37b378... drivers: tspdrv: Rename vtg_level_default to vtg_default
-=======
->>>>>>> f079c8e... drivers: tspdrv: Create sysfs interface for vibration intensity
 static void drv2604_write_reg_val(const unsigned char *data, unsigned int size)
 {
 	int i = 0;
