@@ -1356,3 +1356,4 @@
  MODULE_DESCRIPTION("'cpufreq_blu_active' - A cpufreq governor for "
  	"Latency sensitive workloads based on Google & CM Interactive");
 MODULE_LICENSE("GPLv2");
+
