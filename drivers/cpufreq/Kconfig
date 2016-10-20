@@ -273,7 +273,6 @@ config CPU_BOOST
 
 	  If in doubt, say N.
 
-<<<<<<< HEAD
 config CPU_FREQ_GOV_BLU_ACTIVE
  	tristate "'blu_active' cpufreq policy governor"
  	help
@@ -289,13 +288,11 @@ config CPU_FREQ_GOV_BLU_ACTIVE
  
  	  If in doubt, say N.
 
-=======
 config MSM_SLEEPER
 	bool "Shut down cores while screen is off"
 	default y
 	help
 	  Shut down cores while screen is off
->>>>>>> c248e5e... msm-sleeper: shut down cores while screen is off
 
 menu "x86 CPU frequency scaling drivers"
 depends on X86
