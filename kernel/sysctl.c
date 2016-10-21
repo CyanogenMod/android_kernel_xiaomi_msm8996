@@ -92,6 +92,7 @@
 #include <linux/nmi.h>
 #endif
 
+
 #if defined(CONFIG_SYSCTL)
 
 /* External variables not in a header file. */
@@ -426,35 +427,7 @@ static struct ctl_table kern_table[] = {
 		.mode		= 0644,
 		.proc_handler	= sched_hmp_proc_update_handler,
 	},
-	{
-		.procname	= "sched_power_band_limit",
-		.data		= &sysctl_sched_powerband_limit_pct,
-		.maxlen		= sizeof(unsigned int),
-		.mode		= 0644,
-		.proc_handler	= sched_hmp_proc_update_handler,
-	},
 #ifndef CONFIG_SCHED_QHMP
-	{
-		.procname	= "sched_lowspill_freq",
-		.data		= &sysctl_sched_lowspill_freq,
-		.maxlen		= sizeof(unsigned int),
-		.mode		= 0644,
-		.proc_handler	= proc_dointvec,
-	},
-	{
-		.procname	= "sched_pack_freq",
-		.data		= &sysctl_sched_pack_freq,
-		.maxlen		= sizeof(unsigned int),
-		.mode		= 0644,
-		.proc_handler	= proc_dointvec,
-	},
-	{
-		.procname       = "sched_new_task_windows",
-		.data           = &sysctl_sched_new_task_windows,
-		.maxlen         = sizeof(unsigned int),
-		.mode           = 0644,
-		.proc_handler   = sched_window_update_handler,
-	},
 	{
 		.procname       = "sched_early_detection_duration",
 		.data           = &sysctl_early_detection_duration,
@@ -470,18 +443,22 @@ static struct ctl_table kern_table[] = {
 		.proc_handler   = sched_hmp_proc_update_handler,
 	},
 	{
-		.procname	= "sched_small_wakee_task_load",
-		.data		= &sysctl_sched_small_wakee_task_load_pct,
-		.maxlen		= sizeof(unsigned int),
-		.mode		= 0644,
-		.proc_handler   = sched_hmp_proc_update_handler,
+		.procname       = "sched_enable_colocation",
+		.data           = &sysctl_sched_enable_colocation,
+		.maxlen         = sizeof(unsigned int),
+		.mode           = 0644,
+		.proc_handler   = proc_dointvec,
+		.extra1		= &zero,
+		.extra2		= &one,
 	},
 	{
-		.procname	= "sched_big_waker_task_load",
-		.data		= &sysctl_sched_big_waker_task_load_pct,
+		.procname	= "sched_restrict_cluster_spill",
+		.data		= &sysctl_sched_restrict_cluster_spill,
 		.maxlen		= sizeof(unsigned int),
 		.mode		= 0644,
-		.proc_handler   = sched_hmp_proc_update_handler,
+		.proc_handler	= proc_dointvec_minmax,
+		.extra1		= &zero,
+		.extra2		= &one,
 	},
 #endif
 	{
@@ -1743,6 +1720,23 @@ static struct ctl_table vm_table[] = {
 		.extra1		= &zero,
 		.extra2		= &one,
 	},
+#ifdef CONFIG_SCHED_FREQ_INPUT
+	{
+		.procname       = "sched_new_task_windows",
+		.data           = &sysctl_sched_new_task_windows,
+		.maxlen         = sizeof(unsigned int),
+		.mode           = 0644,
+		.proc_handler   = sched_window_update_handler,
+	},
+	{
+		.procname	= "sched_pred_alert_freq",
+		.data		= &sysctl_sched_pred_alert_freq,
+		.maxlen		= sizeof(unsigned int),
+		.mode		= 0644,
+		.proc_handler	= proc_dointvec_minmax,
+		.extra1		= &zero,
+	},
+#endif
 #endif
 	{
 		.procname	= "user_reserve_kbytes",

@@ -393,6 +393,8 @@ struct synaptics_rmi4_data {
 	bool eraser_enable;
 	bool fw_updating;
 	bool wakeup_en;
+	bool is_jdi_panel;
+	unsigned int old_status;
 	int (*reset_device)(struct synaptics_rmi4_data *rmi4_data,
 			bool rebuild);
 	int (*irq_enable)(struct synaptics_rmi4_data *rmi4_data, bool enable,
@@ -402,6 +404,7 @@ struct synaptics_rmi4_data {
 	struct pinctrl *ts_pinctrl;
 	struct pinctrl_state *pinctrl_state_active;
 	struct pinctrl_state *pinctrl_state_suspend;
+	ktime_t timestamp;
 
 #if defined(CONFIG_SECURE_TOUCH)
 	atomic_t st_enabled;
