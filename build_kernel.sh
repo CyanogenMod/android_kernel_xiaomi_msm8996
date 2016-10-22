@@ -7,6 +7,7 @@ OUT_DIR=$ROOT_DIR/out
 BUILDING_DIR=$OUT_DIR/kernel_obj
 
 JOB_NUMBER=`grep processor /proc/cpuinfo|wc -l`
+DATE=`date +%Y-%m-%d-%H:%M`
 
 CROSS_COMPILER=$ROOT_DIR/toolchains/bin/aarch64-linux-gnu-
 
@@ -49,7 +50,7 @@ FUNC_PACK()
 		cp $BUILDING_DIR/arch/arm64/boot/Image.gz-dtb $TEMP_DIR/zImage-dtb
 		cd $TEMP_DIR
 		zip -r9 mKernel.zip ./*
-		mv mKernel.zip $OUT_DIR/mKernel.zip
+		mv mKernel.zip $OUT_DIR/mKernel-$DATE.zip
 		cd $ROOT_DIR
 		FUNC_PRINT "Finish Packing"
 }
