@@ -7,7 +7,7 @@ OUT_DIR=$ROOT_DIR/out
 BUILDING_DIR=$OUT_DIR/kernel_obj
 
 JOB_NUMBER=`grep processor /proc/cpuinfo|wc -l`
-DATE=`date +%Y-%m-%d-%H:%M`
+DATE=`date +%m-%d-%H:%M`
 
 CROSS_COMPILER=$ROOT_DIR/toolchains/bin/aarch64-linux-gnu-
 
